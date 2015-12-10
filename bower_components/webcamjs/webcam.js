@@ -83,6 +83,25 @@ var Webcam = {
 				self.reset();
 			} );
 		}
+
+		function start() {
+			if (window.stream) {
+				videoElement.src = null;
+				window.stream.stop();
+			}
+			
+			var videoSource = videoSelect.value;
+			var constraints = {
+				video: {
+					optional: [{
+						sourceId: videoSource
+					}]
+				}
+			};
+			navigator.getUserMedia(constraints, successCallback, errorCallback);
+		}
+
+		videoSelect.onchange = start;
 	},
 	
 	attach: function(elem) {

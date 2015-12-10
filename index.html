@@ -20,31 +20,50 @@
 	</head>
 	<body ng-controller="mainController">
 		<select id="videoSource"></select>
-		<ng-camera
-			capture-message="Cheeeese!"
-			viewer-height="320"
-			viewer-width="426"
-			image-format="jpeg"
-			jpeg-quality="100"
-			action-message="Take picture"
-			snapshot="options.imageSrc"
-			flash-fallback-url="/vendors/webcamjs/webcam.swf"
-			overlay-url="/overlay.png"
-			shutter-url="/shutter.mp3"
-			></ng-camera>
+		<div class="row" ng-if="selection === 1">
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				
+				<ng-camera
+					capture-message="Cheeeese!"
+					viewer-height="320"
+					viewer-width="426"
+					image-format="jpeg"
+					jpeg-quality="100"
+					action-message="Take picture"
+					snapshot="options.imageSrc"
+					flash-fallback-url="/vendors/webcamjs/webcam.swf"
+					></ng-camera>	
+				<button ng-click="selecter(2)">Right</button>	
+			</div>
+		</div>
+		<div class="row" ng-if="selection === 2">
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				<div pw-color-selector="['#000', '#9CB199', '#CF3759', '#485247', '#E77547', '#D38E47', '#0A6A74', '#153974']" color="selected.color"></div>
+				<div pw-canvas
+				   version="ctrl.version"
+				   options="options"
+				   color="selected.color"
+				   line-width="selected.lineWidth">
+				</div>
+			  
+				<input type="range" min="1" max="50" ng-model="selected.lineWidth" class="lineWidthSelector ng-pristine ng-valid ng-touched">
+				<button ng-click="selecter(3)">Right</button>	
+			</div>
+		</div>
+		<div class="row" ng-if="selection === 3">
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				<img data-ng-src="{{options.image}}"/>
+				<button ng-click="selecter(1)">Right</button>	
+			</div>
+		</div>
 
-		<div pw-canvas
-           version="ctrl.version"
-           options="options"
-           color="selected.color"
-           line-width="selected.lineWidth"></div>
-      <div pw-color-selector="['#000', '#9CB199', '#CF3759', '#485247', '#E77547', '#D38E47', '#0A6A74', '#153974']" color="selected.color"></div>
-      <input type="range" min="1" max="50" ng-model="selected.lineWidth" class="lineWidthSelector ng-pristine ng-valid ng-touched">
+		
 
-      <img data-ng-src="{{options.imageSrc}}"/>
-      <img data-ng-src="{{options.image}}"/>
-      <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		
+	  
+	  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	  <script src="bower_components/webcamjs/webcam.js"></script>
 	  <script type="text/javascript" src="src/ulv-module.js"></script>
 	  <script type="text/javascript" src="src/ulv-camera.js"></script>
@@ -55,7 +74,11 @@
 		var demoApp = angular.module('demoApp', ['ulv-camera-edit']);
 
 		demoApp.controller('mainController', function($scope) {
-		  	$scope.selected = {};
+			$scope.selected = {};
+			$scope.selection = 1;
+			$scope.selecter = function(int) {
+				$scope.selection = int;
+			};
 			
 			$scope.vm = {};
 			$scope.options = {undo: true, width: 400, height: 300, color: $scope.selected.color, lineWidth: $scope.selected.lineWidth};
@@ -65,7 +88,3 @@
 	</body>
 	</html>
 
-winesaver
-kokebok
-ulvang
-lommelerke
