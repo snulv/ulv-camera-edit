@@ -1,0 +1,16 @@
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
+
+ .UlvScrollContainer
+{
+	overflow-x:auto;
+	overflow-y:hidden;
+	height:100%;
+	width:100%;
+}
+
+.UlvScrollItem
+{
+	height:100%;}

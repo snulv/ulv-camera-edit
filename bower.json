@@ -1,0 +1,21 @@
+{
+  "name": "ulv-camera-edit",
+  "main": "ulv-camera-edit.js",
+  "homepage": "https://github.com/snulvin/ulv-camera-edit",
+  "authors": [
+    "Qrakl <snorre.ulvin@gmail.com>"
+  ],
+  "description": "Simple directive for taking and editing pictures",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}
