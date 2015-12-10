@@ -7,7 +7,7 @@
 	  <!-- load bootstrap and fontawesome via CDN -->
 	  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
 	  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
-	  <link rel="stylesheet" href="ulv-vertical-scroll.css" />
+	  <!--<link rel="stylesheet" href="ulv-vertical-scroll.css" />-->
 	  <!-- SPELLS -->
 	  <!-- load angular and angular route via CDN -->
 	  
@@ -16,7 +16,7 @@
 	  <!--<script src="/bower_components/ng-camera/dist/ng-camera.js"></script>
 	  <script type="text/javascript" src="/bower_components/angular-canvas-painter/dist/angular-canvas-painter.js"></script>-->
 	  <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-swipe.js"></script>-->
-	  <script src="ulv-vertical-scroll.js"></script>
+	  <!--<script src="ulv-vertical-scroll.js"></script>-->
 	</head>
 	<body ng-controller="mainController">
 		<select id="videoSource"></select>
@@ -45,11 +45,11 @@
       <img data-ng-src="{{options.image}}"/>
       <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
-	  <script src="/bower_components/webcamjs/webcam.js"></script>
-	  <script type="text/javascript" src="/src/ulv-module.js"></script>
-	  <script type="text/javascript" src="/src/ulv-camera.js"></script>
-	  <script type="text/javascript" src="/src/ulv-canvas.js"></script>
-	  <script type="text/javascript" src="/src/ulv-color-select.js"></script>
+	  <script src="bower_components/webcamjs/webcam.js"></script>
+	  <script type="text/javascript" src="src/ulv-module.js"></script>
+	  <script type="text/javascript" src="src/ulv-camera.js"></script>
+	  <script type="text/javascript" src="src/ulv-canvas.js"></script>
+	  <script type="text/javascript" src="src/ulv-color-select.js"></script>
 	<script>
 		// create the module and name it demoApp
 		var demoApp = angular.module('demoApp', ['ulv-camera-edit']);
