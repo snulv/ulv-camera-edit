@@ -8,7 +8,7 @@ angular.module('ulv-camera-edit')
         colorList: '=pwColorSelector',
         selectedColor: '=color'
       },
-      templateUrl: '../templates/color-selector.html',
+      templateUrl: 'templates/color-selector.html',
       link: function(scope){
         scope.setColor = function(col){
           scope.selectedColor = col;

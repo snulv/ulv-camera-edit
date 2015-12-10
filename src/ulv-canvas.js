@@ -10,7 +10,7 @@ angular.module('ulv-camera-edit')
         color: '=',
         lineWidth: '='
       },
-      templateUrl: '../templates/canvas.html',
+      templateUrl: 'templates/canvas.html',
       link: function postLink(scope, elm) {
 
         var isTouch = !!('ontouchstart' in window);
