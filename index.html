@@ -19,6 +19,12 @@
 	  <!--<script src="ulv-vertical-scroll.js"></script>-->
 	</head>
 	<body ng-controller="mainController">
+		<div class="select">
+		    <label for="videoSource">Video source: </label><select id="videoSource"></select>
+		  </div>
+
+		  <video muted autoplay></video>
+		<!--
 		<select id="videoSource"></select>
 		<div class="row" ng-if="selection === 1">
 			<div class="col-md-4 col-sm-12 col-xs-12">
@@ -55,7 +61,7 @@
 				<img data-ng-src="{{options.image}}"/>
 				<button ng-click="selecter(1)">Right</button>	
 			</div>
-		</div>
+		</div>-->
 
 		
 
