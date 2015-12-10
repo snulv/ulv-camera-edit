@@ -1,0 +1,71 @@
+	<!-- index.html -->
+	<!DOCTYPE html>
+	<html ng-app="demoApp">
+	<head>
+	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	  <!-- SCROLLS -->
+	  <!-- load bootstrap and fontawesome via CDN -->
+	  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+	  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+	  <link rel="stylesheet" href="ulv-vertical-scroll.css" />
+	  <!-- SPELLS -->
+	  <!-- load angular and angular route via CDN -->
+	  
+	  
+	  
+	  <!--<script src="/bower_components/ng-camera/dist/ng-camera.js"></script>
+	  <script type="text/javascript" src="/bower_components/angular-canvas-painter/dist/angular-canvas-painter.js"></script>-->
+	  <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-swipe.js"></script>-->
+	  <script src="ulv-vertical-scroll.js"></script>
+	</head>
+	<body ng-controller="mainController">
+		<select id="videoSource"></select>
+		<ng-camera
+			capture-message="Cheeeese!"
+			viewer-height="320"
+			viewer-width="426"
+			image-format="jpeg"
+			jpeg-quality="100"
+			action-message="Take picture"
+			snapshot="options.imageSrc"
+			flash-fallback-url="/vendors/webcamjs/webcam.swf"
+			overlay-url="/overlay.png"
+			shutter-url="/shutter.mp3"
+			></ng-camera>
+
+		<div pw-canvas
+           version="ctrl.version"
+           options="options"
+           color="selected.color"
+           line-width="selected.lineWidth"></div>
+      <div pw-color-selector="['#000', '#9CB199', '#CF3759', '#485247', '#E77547', '#D38E47', '#0A6A74', '#153974']" color="selected.color"></div>
+      <input type="range" min="1" max="50" ng-model="selected.lineWidth" class="lineWidthSelector ng-pristine ng-valid ng-touched">
+
+      <img data-ng-src="{{options.imageSrc}}"/>
+      <img data-ng-src="{{options.image}}"/>
+      <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	  <script src="/bower_components/webcamjs/webcam.js"></script>
+	  <script type="text/javascript" src="/src/ulv-module.js"></script>
+	  <script type="text/javascript" src="/src/ulv-camera.js"></script>
+	  <script type="text/javascript" src="/src/ulv-canvas.js"></script>
+	  <script type="text/javascript" src="/src/ulv-color-select.js"></script>
+	<script>
+		// create the module and name it demoApp
+		var demoApp = angular.module('demoApp', ['ulv-camera-edit']);
+
+		demoApp.controller('mainController', function($scope) {
+		  	$scope.selected = {};
+			
+			$scope.vm = {};
+			$scope.options = {undo: true, width: 400, height: 300, color: $scope.selected.color, lineWidth: $scope.selected.lineWidth};
+		});
+	</script>
+
+	</body>
+	</html>
+
+winesaver
+kokebok
+ulvang
+lommelerke
