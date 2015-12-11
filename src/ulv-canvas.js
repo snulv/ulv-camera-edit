@@ -3,7 +3,7 @@
 angular.module('ulv-camera-edit')
   .directive('pwCanvas', function() {
     return {
-      restrict: 'AE',
+      restrict: 'E',
       scope: {
         options: '=',
         version: '=',
