@@ -63,16 +63,16 @@
 					if (localStream) {
 						videoElement.pause();
 						videoElement.src = null;
-						//localStream.stop();
+						localStream.stop();
 					}
 					var videoSource = scope.selected.id;
 					var videoWidth = element.parent().width();
 					console.log(videoWidth);
 					var constraints = {
 						video: {
-							mandatory: {
+							/*mandatory: {
 								maxWidth: videoWidth,
-							},
+							},*/
 							optional: [{
 								sourceId: videoSource
 							}]
