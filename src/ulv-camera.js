@@ -15,7 +15,6 @@
 				var videoElement = document.querySelector('video');
 				var localStream;
 				scope.videoSelect = [];//document.querySelector('select#videoSource');
-				scope.selected = {};
 				
 				navigator.getUserMedia = navigator.getUserMedia ||
 				  navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -28,14 +27,19 @@
 						
 
 						if (sourceInfo.kind === 'video') {
-							var tempText = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
-							scope.videoSelect.push(tempText);
+
+								scope.selected = sourceInfo;
+								console.log(sourceInfo.id, sourceInfo.label || 'camera');
+								console.log(scope.selected);
+							var tempText = sourceInfo.label || 'camera ' + (scope.videoSelect.length + 1);
+							scope.videoSelect.push(sourceInfo.id);
 							///videoSelect.appendChild(option);
 						} else {
 							//console.log('Some other kind of source: ', sourceInfo);
 						}
 					}
-					console.log(scope.videoSelect);
+
+					scope.start();
 				}
 
 				if (typeof MediaStreamTrack === 'undefined' ||
@@ -49,7 +53,6 @@
 					window.stream = stream; // make stream available to console
 					videoElement.src = window.URL.createObjectURL(stream);
 					videoElement.play();
-					console.log(stream);
 				}
 
 				function errorCallback(error) {
@@ -62,7 +65,8 @@
 						videoElement.src = null;
 						//window.stream.stop();
 					}
-					var videoSource = scope.selected.camera;
+					var videoSource = scope.selected.id;
+					console.log(videoSource);
 					var constraints = {
 						video: {
 							optional: [{
@@ -75,7 +79,7 @@
 
 				//scope.videoSelect.onchange = start;
 
-				scope.start();
+				
 			}
 		};
 	})
