@@ -50,7 +50,7 @@
 				}
 
 				function successCallback(stream) {
-					window.stream = stream; // make stream available to console
+					localStream = stream; // make stream available to console
 					videoElement.src = window.URL.createObjectURL(stream);
 					videoElement.play();
 				}
@@ -60,10 +60,10 @@
 				}
 
 				scope.start = function() {
-					if (window.stream) {
+					if (localStream) {
 						videoElement.pause();
 						videoElement.src = null;
-						//window.stream.stop();
+						localStream.stop();
 					}
 					var videoSource = scope.selected.id;
 					console.log(videoSource);
