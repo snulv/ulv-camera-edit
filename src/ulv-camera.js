@@ -11,7 +11,7 @@
 				options: '=',
 			},
 			templateUrl: 'templates/camera.html',
-			link: function(scope) {
+			link: function(scope, element) {
 				var videoElement = document.querySelector('video');
 				var localStream;
 				scope.videoSelect = [];//document.querySelector('select#videoSource');
@@ -66,9 +66,13 @@
 						localStream.stop();
 					}
 					var videoSource = scope.selected.id;
-					console.log(videoSource);
+					var videoWidth = element.parent().width();
+					console.log(videoWidth);
 					var constraints = {
 						video: {
+							mandatory: {
+								maxWidth: videoWidth,
+							},
 							optional: [{
 								sourceId: videoSource
 							}]
