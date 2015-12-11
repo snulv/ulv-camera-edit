@@ -32,7 +32,7 @@
 								console.log(sourceInfo.id, sourceInfo.label || 'camera');
 								console.log(scope.selected);
 							var tempText = sourceInfo.label || 'camera ' + (scope.videoSelect.length + 1);
-							scope.videoSelect.push(sourceInfo.id);
+							scope.videoSelect.push(sourceInfo);
 							///videoSelect.appendChild(option);
 						} else {
 							//console.log('Some other kind of source: ', sourceInfo);
