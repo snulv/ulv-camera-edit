@@ -59,11 +59,12 @@
 				}
 
 				scope.start = function() {
-					if (localStream) {
+					/*if (localStream) {
 						//videoElement.pause();
 						videoElement.src = null;
 						console.log(localStream);
 						localStream.getVideoTracks()[0].stop();
+						localStream = null;
 					}
 
 					console.log(scope.videoSelect[scope.selected].id);
@@ -76,7 +77,14 @@
 							}]
 						}
 					};
-					navigator.getUserMedia(constraints, successCallback, errorCallback);
+					navigator.getUserMedia(constraints, successCallback, errorCallback);*/
+
+					navigator.getUserMedia({
+						audio: false,
+						video: true
+					}, function(stream) {
+						console.log(stream.getVideoTracks());
+					}, errorCallback);
 				};
 
 				scope.capture = function() {
