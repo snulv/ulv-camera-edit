@@ -82,9 +82,7 @@
 					navigator.getUserMedia({
 						audio: false,
 						video: true
-					}, function(stream) {
-						console.log(stream.getVideoTracks());
-					}, errorCallback);
+					}, successCallback, errorCallback);
 				};
 
 				scope.capture = function() {
