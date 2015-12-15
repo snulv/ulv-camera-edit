@@ -61,7 +61,7 @@
 					if (localStream) {
 						videoElement.pause();
 						videoElement.src = null;
-						//localStream.stop();
+						localStream.stop();
 					}
 
 					var videoSource = scope.videoSelect[scope.selected].id;
