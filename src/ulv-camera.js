@@ -38,7 +38,7 @@
 						}
 					}
 					scope.$apply();
-					scope.start();
+					scope.start(0);
 				}
 
 				if (typeof MediaStreamTrack === 'undefined' ||
@@ -59,7 +59,7 @@
 				}
 
 				scope.start = function() {
-					console.log('yop?');
+					console.log(scope.selected);
 					if (localStream) {
 						console.log(localStream.getVideoTracks());
 						//videoElement.pause();
