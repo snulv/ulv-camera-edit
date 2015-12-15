@@ -26,10 +26,9 @@
 						
 
 						if (sourceInfo.kind === 'video') {
-
 								scope.selected = sourceInfo;
-							var tempText = sourceInfo.label || 'camera ' + (scope.videoSelect.length + 1);
-							scope.videoSelect.push(sourceInfo);
+								var tempText = sourceInfo.label || 'camera ' + (scope.videoSelect.length + 1);
+								scope.videoSelect.push(sourceInfo);
 							///videoSelect.appendChild(option);
 						} else {
 							//console.log('Some other kind of source: ', sourceInfo);
@@ -62,6 +61,9 @@
 						videoElement.src = null;
 						localStream.stop();
 					}
+					console.log(scope.selected);
+					console.log(scope.selected.id);
+
 					var videoSource = scope.selected.id;
 
 					var constraints = {
