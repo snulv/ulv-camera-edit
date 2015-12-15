@@ -29,7 +29,7 @@
 						if (sourceInfo.kind === 'video') {
 								var tempText = sourceInfo.label || 'camera ' + (scope.videoSelect.length + 1);
 								scope.videoSelect.push(sourceInfo);
-								//scope.videoSelect.push(sourceInfo);
+								scope.videoSelect.push(sourceInfo);
 
 								scope.selected = scope.videoSelect.length - 1;
 							///videoSelect.appendChild(option);
@@ -49,7 +49,6 @@
 				}
 
 				function successCallback(stream) {
-					console.log(stream.getVideoTracks());
 					localStream = stream; // make stream available to console
 					videoElement.src = window.URL.createObjectURL(stream);
 					videoElement.play();
@@ -60,12 +59,13 @@
 				}
 
 				scope.start = function() {
-					/*if (localStream) {
+					console.log('yop?');
+					if (localStream) {
+						console.log(localStream.getVideoTracks());
 						//videoElement.pause();
 						videoElement.src = null;
 						console.log(localStream);
 						localStream.getVideoTracks()[0].stop();
-						localStream = null;
 					}
 
 					console.log(scope.videoSelect[scope.selected].id);
@@ -78,12 +78,7 @@
 							}]
 						}
 					};
-					navigator.getUserMedia(constraints, successCallback, errorCallback);*/
-
-					navigator.getUserMedia({
-						audio: false,
-						video: true
-					}, successCallback, errorCallback);
+					navigator.getUserMedia(constraints, successCallback, errorCallback);
 				};
 
 				scope.capture = function() {
