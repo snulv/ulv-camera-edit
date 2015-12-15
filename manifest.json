@@ -1,4 +1,6 @@
 {
-  "name": "UlvCamEdit",
-  "start_url": "index.html",
+	"name": "UlvCamEdit",
+	"start_url": "index.html",
+	"display": "fullscreen",
+	"orientation": "portrait"
 }
