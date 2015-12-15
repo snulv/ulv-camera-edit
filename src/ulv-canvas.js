@@ -8,9 +8,10 @@ angular.module('ulv-camera-edit')
         options: '=',
         version: '=',
         color: '=',
-        lineWidth: '='
+        lineWidth: '=',
+        drawBackground: '='
       },
-      templateUrl: '../templates/canvas.html',
+      templateUrl: 'templates/canvas.html',
       link: function postLink(scope, elm) {
 
         var isTouch = !!('ontouchstart' in window);
@@ -30,6 +31,19 @@ angular.module('ulv-camera-edit')
         options.opacity = options.opacity || 0.9;
         options.undo = options.undo || false;
         options.imageSrc = options.imageSrc || false;
+        options.image = options.image || false;
+
+
+          scope.drawBackground = function(img, width, height) {
+              if (img) {
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(img, 0, 0);  
+              }
+              
+          };   
+        
+
         options.image = options.image || false;
 
         // Set brush options

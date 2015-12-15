@@ -1,194 +1,91 @@
-/* global Webcam */
 (function(angular) {
-    'use strict';
+	'use strict';
 
-    angular
-        .module('ulv-camera-edit')
-        .directive('ngCamera', directive);
+	angular
+		.module('ulv-camera-edit')
+	.directive('ulvCamera', function() {
+		return {
+			restrict: 'AE',
+			scope: {
+				captureFunction: '=',
+			},
+			templateUrl: 'templates/camera.html',
+			link: function(scope, element) {
+				var videoElement = element[0].querySelector('video');
+				var localStream;
+				scope.selected;
+				scope.videoSelect = [];
+				
+				navigator.getUserMedia = navigator.getUserMedia ||
+				  navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-    directive.$inject = ['$q', '$timeout'];
+				function gotSources(sourceInfos) {
+					for (var i = 0; i !== sourceInfos.length; ++i) {
+						var sourceInfo = sourceInfos[i];
+						//option.value = sourceInfo.id;
+						//var option = document.createElement('option');
+						
 
-    function directive($q, $timeout) {
-        return {
-            'restrict': 'E',
-            'scope': {
-                'actionMessage': '@',
-                'captureMessage': '@',
-                'countdown': '@',
-                'flashFallbackUrl': '@',
-                'overlayUrl': '@',
-                'outputHeight': '@',
-                'outputWidth': '@',
-                'shutterUrl': '@',
-                'viewerHeight': '@',
-                'viewerWidth': '@',
-                'cropHeight': '@',
-                'cropWidth': '@',
-                'imageFormat': '@',
-                'jpegQuality': '@',
-                'snapshot': '='
-            },
-            // 'templateUrl': '/angular/ng-camera.html',
-            'template': ['<div class="ng-camera">',
-                '<div class="ng-camera-countdown" ng-if="countdown" ng-show="activeCountdown">',
-                '<p class="tick">{{countdownText}}</p>',
-                '</div>',
-                '<div class="ng-camera-stack">',
-                '<img class="ng-camera-overlay" ng-if="overlayUrl" ng-show="cameraLive" ng-src="{{overlayUrl}}" alt="overlay">',
-                '<div id="ng-camera-feed"></div>',
-                '</div>',
-                '<button id="ng-camera-action" ng-click="getSnapshot()">{{actionMessage}}</button>',
-                '</div>'].join(''),
-            'link': link
-        };
+						if (sourceInfo.kind === 'video') {
+								var tempText = sourceInfo.label || 'camera ' + (scope.videoSelect.length + 1);
+								scope.videoSelect.push(sourceInfo);
 
-        function link(scope, element, attrs) {
-            /**
-             * Set default variables
-             */
-            scope.libraryLoaded = false;
-            scope.cameraLive = false;
-            scope.activeCountdown = false;
+								scope.selected = scope.videoSelect.length - 1;
+							///videoSelect.appendChild(option);
+						} else {
+							//console.log('Some other kind of source: ', sourceInfo);
+						}
+					}
+					scope.$apply();
+					scope.start();
+				}
 
-            /**
-             * Set dimensions
-             */
-            if(scope.viewerHeight === undefined) {
-                scope.viewerHeight = 'auto';
-            }
-            if(scope.viewerWidth === undefined) {
-                scope.viewerWidth = 'auto';
-            }
-            if(scope.outputHeight === undefined) {
-                scope.outputHeight = scope.viewerHeight;
-            }
-            if(scope.outputWidth === undefined) {
-                scope.outputWidth = scope.viewerWidth;
-            }
+				if (typeof MediaStreamTrack === 'undefined' ||
+					typeof MediaStreamTrack.getSources === 'undefined') {
+				  		alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
+				} else {
+				  	MediaStreamTrack.getSources(gotSources);
+				}
 
-            /**
-             * Disable cropping if one or the two params are undefined
-             */
-            if(scope.cropHeight === undefined || scope.cropWidth === undefined) {
-                scope.cropHeight = false;
-                scope.cropWith = false;
-            }
+				function successCallback(stream) {
+					localStream = stream; // make stream available to console
+					videoElement.src = window.URL.createObjectURL(stream);
+					videoElement.play();
+				}
 
-            /**
-             * Set configuration parameters
-             * @type {object}
-             */
-            Webcam.set({
-                width: scope.viewerWidth,
-                height: scope.viewerHeight,
-                dest_width: scope.outputWidth,
-                dest_height: scope.outputHeight,
-                crop_width: scope.cropWidth,
-                crop_height: scope.cropHeight,
-                image_format: scope.imageFormat,
-                jpeg_quality: scope.jpegQuality,
-                force_flash: false
-            });
-            if(scope.flashFallbackUrl !== 'undefined') {
-                Webcam.setSWFLocation(scope.flashFallbackUrl);
-            }
-            Webcam.attach('#ng-camera-feed');
+				function errorCallback(error) {
+					console.log('navigator.getUserMedia error: ', error);
+				}
 
-            /**
-             * Register WebcamJS events
-             */
-            Webcam.on('load', function() {
-                console.info('library loaded');
-                scope.$apply(function() {
-                    scope.libraryLoaded = true;
-                });
-            });
-            Webcam.on('live', function() {
-                console.info('camera live');
-                scope.$apply(function() {
-                    scope.cameraLive = true;
-                });
-            });
-            Webcam.on('error', function(error) {
-                console.error('WebcameJS directive ERROR: ', error);
-            });
+				scope.start = function() {
+					if (localStream) {
+						videoElement.pause();
+						videoElement.src = null;
+						//localStream.stop();
+					}
 
-            /**
-             * Preload the shutter sound
-             */
-            if(scope.shutterUrl !== undefined) {
-                scope.shutter = new Audio();
-                scope.shutter.autoplay = false;
-                if(navigator.userAgent.match(/Firefox/)) {
-                    scope.shutter.src = scope.shutterUrl.split('.')[0] + '.ogg';
-                } else {
-                    scope.shutter.src = scope.shutterUrl;
-                }
-            }
+					var videoSource = scope.videoSelect[scope.selected].id;
 
-            /**
-             * Set countdown
-             */
-            if(scope.countdown !== undefined) {
-                scope.countdownTime = parseInt(scope.countdown) * 1000;
-                scope.countdownText = parseInt(scope.countdown);
-            }
-            scope.countdownStart = function() {
-                scope.activeCountdown = true;
-                scope.countdownPromise = $q.defer();
-                scope.countdownTick = setInterval(function() {
-                    return scope.$apply(function() {
-                        var nextTick;
-                        nextTick = parseInt(scope.countdownText) - 1;
-                        if(nextTick === 0) {
-                            scope.countdownText = scope.captureMessage != null ? scope.captureMessage : 'GO!';
-                            clearInterval(scope.countdownTick);
-                            scope.countdownPromise.resolve();
-                        }else{
-                            scope.countdownText = nextTick;
-                        }
-                    });
-                }, 1000);
-            };
+					var constraints = {
+						video: {
+							optional: [{
+								sourceId: videoSource
+							}]
+						}
+					};
+					navigator.getUserMedia(constraints, successCallback, errorCallback);
+				};
 
-            /**
-             * Get snapshot
-             */
-            scope.getSnapshot = function() {
-                console.log('testing');
-                if(scope.countdown !== undefined) {
-                    scope.countdownStart();
-                    scope.countdownPromise.promise.then(function() {
-                        $timeout(function() {
-                            scope.activeCountdown = false;
-                            scope.countdownText = parseInt(scope.countdown);
-                        }, 2000);
-
-                        if(scope.shutterUrl !== undefined) {
-                            scope.shutter.play();
-                        }
-
-                        Webcam.snap(function(data_uri) {
-                            scope.snapshot = data_uri;
-                            console.log(scope.snapshot);
-                        });
-                    });
-                } else {
-                    if(scope.shutterUrl !== undefined) {
-                        scope.shutter.play();
-                    }
-
-                    Webcam.snap(function(data_uri) {
-                        scope.snapshot = data_uri;
-                        console.log(scope.snapshot);
-                    });
-                }
-            };
-
-            scope.$on('$destroy', function() {
-                Webcam.reset();
-            });
-        }
-    }
-
+				scope.capture = function() {
+					if (localStream) {
+						scope.captureFunction(videoElement, videoElement.videoWidth, videoElement.videoHeight);
+					
+						// "image/webp" works in Chrome.
+						// Other browsers will fall back to image/png.
+						//document.querySelector('img').src = canvas.toDataURL('image/webp');
+					}
+				};	
+			}
+		};
+	});
 })(angular);

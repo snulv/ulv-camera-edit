@@ -83,6 +83,34 @@ var Webcam = {
 				self.reset();
 			} );
 		}
+<<<<<<< HEAD
+=======
+
+		function start() {
+			if (window.stream) {
+				videoElement.src = null;
+				window.stream.stop();
+			}
+			
+			var videoSource = videoSelect.value;
+			var constraints = {
+			audio: {
+			optional: [{
+			sourceId: audioSource
+			}]
+			},
+			video: {
+			optional: [{
+			sourceId: videoSource
+			}]
+			}
+			};
+			navigator.getUserMedia(constraints, successCallback, errorCallback);
+		}
+
+			audioSelect.onchange = start;
+			videoSelect.onchange = start;
+>>>>>>> gh-pages
 	},
 	
 	attach: function(elem) {
