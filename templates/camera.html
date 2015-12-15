@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		<select name="mySelect" id="mySelect"
-	      ng-options="item.label for item in videoSelect track by item.id"
+	      ng-options="key as item.label for (key, item) in videoSelect track by $index"
 	      ng-model="selected"
 	      ng-change="start()"></select>		
 	</div>

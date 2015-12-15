@@ -13,6 +13,7 @@
 			link: function(scope, element) {
 				var videoElement = element[0].querySelector('video');
 				var localStream;
+				scope.selected;
 				scope.videoSelect = [];
 				
 				navigator.getUserMedia = navigator.getUserMedia ||
@@ -26,9 +27,10 @@
 						
 
 						if (sourceInfo.kind === 'video') {
-								scope.selected = sourceInfo;
 								var tempText = sourceInfo.label || 'camera ' + (scope.videoSelect.length + 1);
 								scope.videoSelect.push(sourceInfo);
+
+								scope.selected = scope.videoSelect.length - 1;
 							///videoSelect.appendChild(option);
 						} else {
 							//console.log('Some other kind of source: ', sourceInfo);
@@ -59,12 +61,10 @@
 					if (localStream) {
 						videoElement.pause();
 						videoElement.src = null;
-						localStream.stop();
+						//localStream.stop();
 					}
-					console.log(scope.selected);
-					console.log(scope.selected.id);
 
-					var videoSource = scope.selected.id;
+					var videoSource = scope.videoSelect[scope.selected].id;
 
 					var constraints = {
 						video: {
