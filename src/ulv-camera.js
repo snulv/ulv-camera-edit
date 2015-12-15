@@ -29,6 +29,7 @@
 						if (sourceInfo.kind === 'video') {
 								var tempText = sourceInfo.label || 'camera ' + (scope.videoSelect.length + 1);
 								scope.videoSelect.push(sourceInfo);
+								//scope.videoSelect.push(sourceInfo);
 
 								scope.selected = scope.videoSelect.length - 1;
 							///videoSelect.appendChild(option);
@@ -59,11 +60,13 @@
 
 				scope.start = function() {
 					if (localStream) {
-						videoElement.pause();
+						//videoElement.pause();
 						videoElement.src = null;
-						localStream.stop();
+						console.log(localStream);
+						localStream.getVideoTracks()[0].stop();
 					}
 
+					console.log(scope.videoSelect[scope.selected].id);
 					var videoSource = scope.videoSelect[scope.selected].id;
 
 					var constraints = {
