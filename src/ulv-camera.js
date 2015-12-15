@@ -49,6 +49,7 @@
 				}
 
 				function successCallback(stream) {
+					console.log(stream.getVideoTracks());
 					localStream = stream; // make stream available to console
 					videoElement.src = window.URL.createObjectURL(stream);
 					videoElement.play();
