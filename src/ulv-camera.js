@@ -10,6 +10,9 @@ angular.module('ulv-camera-edit')
 			},
 			templateUrl: 'templates/camera.html',
 			link: function(scope, element) {
+				scope.totalWidth = window.innerWidth;
+				scope.totalHeight = window.innerHeight;
+
 				var videoElement = element[0].querySelector('video');
 				var localStream;
 				scope.selected;
@@ -85,6 +88,29 @@ angular.module('ulv-camera-edit')
 						//document.querySelector('img').src = canvas.toDataURL('image/webp');
 					}
 				};	
+
+				
+
+				function loop(){
+					canvas.width = scope.totalWidth;
+					canvas.height = scope.totalHeight;
+					var wofSet = scope.totalWidth / 2;
+					var wcentre = videoElement.videoWidth / 2;
+					var wstart = wcentre - wofSet;
+					var hofSet = scope.totalHeight / 2;
+					var hcentre = videoElement.videoHeight / 2;
+					var hstart = hcentre - hofSet;
+					console.log(hofSet);
+
+					ctx.drawImage(videoElement, wstart, hstart, wcentre+wofSet, hcentre+hofSet, 0, 0, scope.totalWidth, scope.totalHeight);
+					setTimeout(loop, 1000 / 30);
+				}
+
+				var canvas = document.getElementById('cropCvs');
+				var ctx = canvas.getContext('2d');
+
+				loop();
+
 			}
 		};
 	});
