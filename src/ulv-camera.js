@@ -1,8 +1,7 @@
 (function(angular) {
 	'use strict';
 
-	angular
-		.module('ulv-camera-edit')
+angular.module('ulv-camera-edit')
 	.directive('ulvCamera', function() {
 		return {
 			restrict: 'AE',
@@ -29,9 +28,6 @@
 						if (sourceInfo.kind === 'video') {
 								var tempText = sourceInfo.label || 'camera ' + (scope.videoSelect.length + 1);
 								scope.videoSelect.push(sourceInfo);
-								scope.videoSelect.push(sourceInfo);
-
-								scope.selected = scope.videoSelect.length - 1;
 							///videoSelect.appendChild(option);
 						} else {
 							//console.log('Some other kind of source: ', sourceInfo);
@@ -58,8 +54,8 @@
 					console.log('navigator.getUserMedia error: ', error);
 				}
 
-				scope.start = function() {
-					console.log(scope.selected);
+				scope.start = function(key) {
+
 					if (localStream) {
 						console.log(localStream.getVideoTracks());
 						//videoElement.pause();
@@ -68,8 +64,7 @@
 						localStream.getVideoTracks()[0].stop();
 					}
 
-					console.log(scope.videoSelect[scope.selected].id);
-					var videoSource = scope.videoSelect[scope.selected].id;
+					var videoSource = scope.videoSelect[key].id;
 
 					var constraints = {
 						video: {

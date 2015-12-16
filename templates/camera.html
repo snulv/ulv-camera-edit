@@ -1,19 +1,36 @@
-
 <div class="row">
 	<div class="col-xs-12">
-		<select name="mySelect" id="mySelect"
-	      ng-options="key as item.label for (key, item) in videoSelect"
-	      ng-model="selected"
-	      ng-change="start()"></select>		
+		<video muted autoplay style="width:100% !important; height: auto; !important;"></video>	
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12">
-		<video muted autoplay style="width:100% !important; height: auto !important;"></video>	
+		<div class="btn-group btn-group-justified dropup" role="group" aria-label="...">
+				<div class="btn-group" role="group">
+					<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Source
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="(key, value) in videoSelect track by $index"><a href="#" ng-click="start(key)">Camera {{key+1}}</a></li>
+					</ul>
+				</div>
+				<a type="button" class="btn btn-default" ng-click="capture()"><i class="fa fa-camera"></i></a>
+				<a type="button" class="btn btn-default">Inst</a>
+		</div>
+	</div>
+</div>
+<!--
+<div class="row">
+	<div class="col-xs-12">
+		<select name="mySelect" id="mySelect"
+		  ng-options="key as item.label for (key, item) in videoSelect"
+		  ng-model="selected"
+		  ng-change="start()"></select>		
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12">
 		<button ng-click="capture()">Snap</button>
 	</div>
-</div>
+</div>-->
