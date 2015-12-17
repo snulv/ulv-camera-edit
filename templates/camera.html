@@ -3,29 +3,31 @@
 		<video muted autoplay></video>	
 	</div>
 </div>
-<div class="row">
-	<div class="col-xs-12">
+<div id="container" style="position: relative; width: 100%; height: 100vh; border: 1px solid black;">
+
 		<canvas 
 			id="cropCvs" 
-			style="width: 100%; height: 100vh; border: 1px solid black;"> 
+			class="canvas"> 
 		</canvas> 
-	</div>
+		<div id="overlay">
+			<div class="btn-group" role="group">
+				<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Source
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li ng-repeat="(key, value) in videoSelect track by $index"><a href="#" ng-click="start(key)">Camera {{key+1}}</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="overlay" style="top:90vh;left:45%;width:10%;">
+			<a type="button" class="btn btn-default" ng-click="capture()"><i class="fa fa-camera"></i></a>
+		</div>
+
 </div>
 <div class="row">
 	<div class="col-xs-12">
-		<div class="btn-group btn-group-justified dropup" role="group" aria-label="...">
-				<div class="btn-group" role="group">
-					<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Source
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li ng-repeat="(key, value) in videoSelect track by $index"><a href="#" ng-click="start(key)">Camera {{key+1}}</a></li>
-					</ul>
-				</div>
-				<a type="button" class="btn btn-default" ng-click="capture()"><i class="fa fa-camera"></i></a>
-				<a type="button" class="btn btn-default">Inst</a>
-		</div>
+		
 	</div>
 </div>
 <!--

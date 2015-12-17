@@ -1,24 +1,8 @@
 
-<ulv-camera capture-function="capture.func"></ulv-camera>
-<!--
-<div class="row" >
-	<div class="col-md-4 col-sm-12 col-xs-12">
-		<div pw-color-selector="['#000', '#9CB199', '#CF3759', '#485247', '#E77547', '#D38E47', '#0A6A74', '#153974']" color="selected.color"></div>
-		<div pw-canvas
-		   version="ctrl.version"
-		   options="options"
-		   color="selected.color"
-		   line-width="selected.lineWidth"
-		   draw-background="draw.background">
+<ulv-camera ng-if="currentView == 'capture'" capture-function="capture.func"></ulv-camera>
+<ulv-canvas ng-if="currentView == 'edit'" background="background"></ulv-canvas>
 
 
-		</div>
-	  
-		<input type="range" min="1" max="50" ng-model="selected.lineWidth" class="lineWidthSelector ng-pristine ng-valid ng-touched">
-		<button ng-click="selecter(3)">Right</button>	
-	</div>
-</div>
--->
 <!--<div class="row">
 	<div class="col-xs-12">
 		<canvas style="width:100% !important;"></canvas>

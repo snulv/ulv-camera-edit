@@ -8,8 +8,9 @@ angular.module('ulv-camera-edit')
 			scope: {
 				captureFunction: '=',
 			},
+			require: '^ulvCameraEdit',
 			templateUrl: 'templates/camera.html',
-			link: function(scope, element) {
+			link: function(scope, element, attrs, ulvCameraEditCtrl) {
 				scope.totalWidth = window.innerWidth;
 				scope.totalHeight = window.innerHeight;
 
@@ -81,8 +82,8 @@ angular.module('ulv-camera-edit')
 
 				scope.capture = function() {
 					if (localStream) {
-						scope.captureFunction(videoElement, videoElement.videoWidth, videoElement.videoHeight);
-					
+						scope.captureFunction(canvas, canvas.width, canvas.height);
+						ulvCameraEditCtrl.changeView('edit');
 						// "image/webp" works in Chrome.
 						// Other browsers will fall back to image/png.
 						//document.querySelector('img').src = canvas.toDataURL('image/webp');
@@ -100,7 +101,6 @@ angular.module('ulv-camera-edit')
 					var hofSet = scope.totalHeight / 2;
 					var hcentre = videoElement.videoHeight / 2;
 					var hstart = hcentre - hofSet;
-					console.log(hofSet);
 
 					ctx.drawImage(videoElement, wstart, hstart, wcentre+wofSet, hcentre+hofSet, 0, 0, scope.totalWidth, scope.totalHeight);
 					setTimeout(loop, 1000 / 30);
